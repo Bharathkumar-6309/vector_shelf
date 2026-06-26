@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # VectorShelf (local dev)
 
 This repository contains a FastAPI backend and a React frontend for browsing products.
@@ -44,3 +45,6 @@ Features:
 - Snapshot consistency to avoid duplicates/misses while browsing
 - Category filtering
 
+=======
+# vector_shelf
+>>>>>>> 9ff36b2ad9e263c2b4a0937f67c1e1ff02ab2a1e
