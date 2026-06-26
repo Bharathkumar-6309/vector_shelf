@@ -1,5 +1,6 @@
 """Database connection and session management."""
 
+from pathlib import Path
 from sqlalchemy import create_engine, text, select
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import QueuePool
@@ -11,9 +12,23 @@ from app.models.product import Product
 
 logger = logging.getLogger(__name__)
 
+
+def get_database_url() -> str:
+    """Return the configured database URL or fallback to SQLite for local dev."""
+    database_url = settings.resolved_database_url
+    if settings.database_url is None:
+        local_db_path = Path(__file__).resolve().parents[2] / "dev.db"
+        database_url = f"sqlite:///{local_db_path}"
+        logger.warning(
+            "DATABASE_URL is not set; falling back to local SQLite database: %s",
+            database_url,
+        )
+    return database_url
+
+
 # Create engine with connection pooling
 engine = create_engine(
-    settings.database_url,
+    get_database_url(),
     poolclass=QueuePool,
     pool_size=10,
     max_overflow=20,
@@ -58,7 +73,8 @@ def init_db() -> None:
         logger.info("Database tables verified/created successfully")
 
         # If we are using a local SQLite database and it is empty, seed sample products.
-        if settings.database_url and settings.database_url.startswith("sqlite"):
+        db_url = str(engine.url)
+        if db_url.startswith("sqlite"):
             with SessionLocal() as session:
                 count = session.query(Product).count()
                 if count == 0:

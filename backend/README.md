@@ -40,7 +40,7 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # Edit .env with your database configuration
-# DATABASE_URL=postgresql://user:password@localhost:5432/product_browser
+# DATABASE_URL=postgresql://user:password@hostname:5432/product_browser
 ```
 
 ## Database Setup

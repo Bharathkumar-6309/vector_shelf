@@ -199,7 +199,7 @@ pip install psycopg2-binary faker
 
 ### Environment Setup
 ```bash
-export DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+export DATABASE_URL="postgresql://user:password@hostname:5432/dbname"
 ```
 
 ### Running the Script
