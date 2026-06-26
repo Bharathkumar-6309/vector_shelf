@@ -6,7 +6,7 @@ from sqlalchemy.pool import QueuePool
 from typing import Generator
 import logging
 
-from app.config import settings
+from app.core.config import settings
 from app.models.product import Product
 
 logger = logging.getLogger(__name__)
